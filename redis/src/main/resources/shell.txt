@@ -1,0 +1,11 @@
+// brew 控制
+brew services start redis
+
+brew services info redis
+
+brew services stop redis
+
+// 原生控制
+redis-server
+
+redis-cli
