@@ -1,5 +1,6 @@
 package com.example.mysql.controller;
 
+import com.example.mysql.aop.DemoAnnotation;
 import com.example.mysql.model.entity.UserEntity;
 import com.example.mysql.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,12 @@ public class TestController {
             UserEntity userEntity = UserEntity.builder().name("abc").age(18).email("abc@gmail.com").build();
             userService.addUser(userEntity);
         }
+        System.out.println(testAspect());
         return userService.findAllUsers();
+    }
+
+    @DemoAnnotation(value = "testAspect", description = "testAspect")
+    public String testAspect() {
+        return "testAspect";
     }
 }

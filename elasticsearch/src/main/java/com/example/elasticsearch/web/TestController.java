@@ -35,4 +35,9 @@ public class TestController {
     public User find(@RequestParam String id) {
         return userRepository.findById(id).orElse(new User());
     }
+
+    @GetMapping("/findAllUser")
+    public Iterable<User> findAllUser() {
+        return userRepository.findAll();
+    }
 }

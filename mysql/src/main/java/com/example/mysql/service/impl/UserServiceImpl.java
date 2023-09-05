@@ -15,8 +15,7 @@ import java.util.List;
 * @createDate 2023-08-13 18:53:35
 */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity>
-    implements UserService{
+public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements UserService{
 
     @Resource
     private UserMapper userMapper;
@@ -29,6 +28,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity>
     @Override
     public void addUser(UserEntity userEntity) {
         userMapper.addUser(userEntity);
+    }
+
+    @Override
+    public void clear() {
     }
 }
 

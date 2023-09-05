@@ -2,8 +2,6 @@ package com.example.elasticsearch.model;
 
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-import java.util.List;
-
 /**
  * @desc:
  * @author: merickbao

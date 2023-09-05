@@ -15,4 +15,6 @@ public interface UserService extends IService<UserEntity> {
     List<UserEntity> findAllUsers();
 
     void addUser(UserEntity userEntity);
+
+    void clear();
 }
