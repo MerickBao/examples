@@ -28,18 +28,14 @@ public class TestController {
         return "pong";
     }
 
+    @DemoAnnotation("test")
     @GetMapping("/users")
     public List<UserEntity> findAllUsers() {
+        userService.clear();
         for (int i = 0; i < 10; i++) {
             UserEntity userEntity = UserEntity.builder().name("abc").age(18).email("abc@gmail.com").build();
             userService.addUser(userEntity);
         }
-        System.out.println(testAspect());
         return userService.findAllUsers();
-    }
-
-    @DemoAnnotation(value = "testAspect", description = "testAspect")
-    public String testAspect() {
-        return "testAspect";
     }
 }

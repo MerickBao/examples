@@ -16,6 +16,8 @@ public interface UserMapper extends BaseMapper<UserEntity> {
     List<UserEntity> findAll();
 
     void addUser(UserEntity userEntity);
+
+    void deleteAll();
 }
 
 

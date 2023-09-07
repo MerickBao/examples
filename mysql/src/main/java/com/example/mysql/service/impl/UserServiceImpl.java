@@ -1,6 +1,7 @@
 package com.example.mysql.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.mysql.aop.DemoAnnotation;
 import com.example.mysql.model.entity.UserEntity;
 import com.example.mysql.service.UserService;
 import com.example.mysql.mapper.UserMapper;
@@ -32,6 +33,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
 
     @Override
     public void clear() {
+        userMapper.deleteAll();
     }
 }
 
