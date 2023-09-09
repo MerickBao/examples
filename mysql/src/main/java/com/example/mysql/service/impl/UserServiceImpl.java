@@ -35,6 +35,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     public void clear() {
         userMapper.deleteAll();
     }
+
+    @DemoAnnotation("name")
+    public String hello() {
+        return "hello";
+    }
 }
 
 

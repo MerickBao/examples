@@ -28,9 +28,9 @@ public class TestController {
         return "pong";
     }
 
-    @DemoAnnotation("test")
     @GetMapping("/users")
     public List<UserEntity> findAllUsers() {
+        System.out.println(userService.hello());
         userService.clear();
         for (int i = 0; i < 10; i++) {
             UserEntity userEntity = UserEntity.builder().name("abc").age(18).email("abc@gmail.com").build();
