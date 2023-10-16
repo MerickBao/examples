@@ -9,7 +9,7 @@ package com.example.designpattern.adapter;
 public interface Login3rdTarget {
 
     // 通过gitee登录
-    public String loginByDitee(String code, String state);
+    public String loginByGitee(String code, String state);
 
     // 通过微信登录
     public String loginByWechat(String ... params);

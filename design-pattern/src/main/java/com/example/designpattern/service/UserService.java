@@ -42,7 +42,7 @@ public class UserService {
     }
 
     // 检查用户是否存在
-    private boolean checkUserExists(String userName) {
+    protected boolean checkUserExists(String userName) {
         return userRepository.findByUserName(userName) != null;
     }
 }

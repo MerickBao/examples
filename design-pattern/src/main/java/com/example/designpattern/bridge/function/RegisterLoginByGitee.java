@@ -1,20 +1,25 @@
-package com.example.designpattern.adapter;
+package com.example.designpattern.bridge.function;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.designpattern.pojo.UserInfo;
+import com.example.designpattern.repo.UserRepository;
 import com.example.designpattern.service.UserService;
 import com.example.designpattern.util.HttpClientUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+
 /**
- * @desc: 继承自UserService，实现Login3rdTarget接口，实现第三方登陆的适配
+ * @desc:
  * @author: merickbao
- * @since: 2023/10/15 18:31
+ * @since: 2023/10/16 22:35
  */
 @Component
-public class Login3rdAdapter extends UserService implements Login3rdTarget {
+public class RegisterLoginByGitee extends UserService implements RegisterLoginFuncInterface {
 
     @Value("${gitee.state}")
     private String giteeState;
@@ -28,10 +33,44 @@ public class Login3rdAdapter extends UserService implements Login3rdTarget {
     @Value("${gitee.username.prefix}")
     private String giteeUserPrefix;
 
+    @Resource
+    private UserRepository userRepository;
+
+    @Resource
+    private UserService userService;
+
     @Override
-    public String loginByGitee(String code, String state) {
-        // 进行state判断，state的值是前端和后端商定好的，前端将state传给Gitee平台，Gitee平台回传给回掉地址，后端进行判断
-        // 如果state不一致，说明不是从本网站发起的请求，直接返回错误
+    public String login(String account, String password) {
+        UserInfo userInfo = userRepository.findByUserName(account);
+        if (userInfo == null) {
+            return "用户不存在";
+        }
+        return "登陆成功";
+    }
+
+    @Override
+    public String register(UserInfo userInfo) {
+        if (checkUserExist(userInfo.getUserName())) {
+            throw new RuntimeException("用户已存在");
+        }
+        userInfo.setCreateDate(new Date());
+        userRepository.save(userInfo);
+        return "注册成功";
+    }
+
+    @Override
+    public boolean checkUserExist(String userName) {
+        UserInfo userInfo = userRepository.findByUserName(userName);
+        if (userInfo == null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String login3rd(HttpServletRequest request) {
+        String code = request.getParameter("code");
+        String state = request.getParameter("state");
         if (!giteeState.equals(state)) {
             throw new UnsupportedOperationException("Invalid state");
         }
@@ -63,13 +102,4 @@ public class Login3rdAdapter extends UserService implements Login3rdTarget {
         return super.login(userName, password);
     }
 
-    @Override
-    public String loginByWechat(String... params) {
-        return null;
-    }
-
-    @Override
-    public String loginByQQ(String... params) {
-        return null;
-    }
 }
