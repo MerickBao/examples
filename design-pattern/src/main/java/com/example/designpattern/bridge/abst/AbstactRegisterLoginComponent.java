@@ -24,12 +24,12 @@ public abstract class AbstactRegisterLoginComponent {
 
     // 校验参数为RegisterLoginFuncInterface类型，final修饰，不可被重写
     protected final void validate(RegisterLoginFuncInterface funcInterface) {
-        if (!(funcInterface instanceof RegisterLoginFuncInterface)) {
+        if (funcInterface == null) {
             throw new UnsupportedOperationException("参数类型错误");
         }
     }
 
-    protected abstract String login(String username, String password);
+    public abstract String login(String username, String password);
 
     protected abstract String register(UserInfo userInfo);
 

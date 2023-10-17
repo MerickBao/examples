@@ -18,7 +18,7 @@ public class RegisterLoginComponent extends AbstactRegisterLoginComponent {
     }
 
     @Override
-    protected String login(String username, String password) {
+    public String login(String username, String password) {
         // 调用桥梁接口的具体实现
         return registerLoginFuncInterface.login(username, password);
     }
